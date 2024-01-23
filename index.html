@@ -53,58 +53,64 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
     <!-- Updated JavaScript code -->
-    <script>
-      $(document).ready(function () {
-        console.log("Script is running!");
+<!-- Updated JavaScript code -->
+<script>
+  $(document).ready(function () {
+    console.log("Script is running!");
 
-        // Display current day
-        $("#currentDay").text(dayjs().format("dddd, MMMM D"));
+    // Display current day
+    $("#currentDay").text(dayjs().format("dddd, MMMM D"));
 
-        // Function to create timeblocks
-        function createTimeBlocks() {
-          const businessHours = [
-            "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"
-          ];
+    // Function to create timeblocks
+    function createTimeBlocks() {
+      const businessHours = [
+        "9 AM", "10 AM", "11 AM", " 12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"
+      ];
 
-          const currentHour = dayjs().format("h A"); // Format the current hour
+      // Format the current hour in 24-hour format
+      const currentHour = dayjs().format("H");
 
-          const container = $(".container");
+      const container = $(".container");
 
-          businessHours.forEach((hour, index) => {
-            const row = $("<div>").addClass("row time-block");
-            const hourColumn = $("<div>").addClass("col-md-1 hour").text(hour);
-            const textArea = $("<textarea>")
-              .addClass(`col-md-9 description ${getHourClass(hour, currentHour)}`)
-              .attr("id", `hour-${index}`)
-              .val(localStorage.getItem(`hour-${index}`));
+      businessHours.forEach((hour, index) => {
+        // Extract the hour part and convert to 24-hour format
+        const blockHour24 = parseInt(hour.split(' ')[0]) + (hour.includes('PM') ? 12 : 0);
 
-            const saveBtn = $("<button>").addClass("col-md-2 saveBtn").html('<i class="fas fa-save"></i>');
+        const row = $("<div>").addClass("row time-block");
+        const hourColumn = $("<div>").addClass("col-md-1 hour").text(hour);
+        const textArea = $("<textarea>")
+          .addClass(`col-md-9 description ${getHourClass(blockHour24, currentHour)}`)
+          .attr("id", `hour-${index}`)
+          .val(localStorage.getItem(`hour-${index}`));
 
-            row.append(hourColumn, textArea, saveBtn);
-            container.append(row);
+        const saveBtn = $("<button>").addClass("col-md-2 saveBtn").html('<i class="fas fa-save"></i>');
 
-            saveBtn.on("click", function () {
-              const eventText = textArea.val();
-              localStorage.setItem(`hour-${index}`, eventText);
-            });
-          });
-        }
+        row.append(hourColumn, textArea, saveBtn);
+        container.append(row);
 
-        // Function to get the appropriate class based on the current hour
-        function getHourClass(blockHour, currentHour) {
-          if (blockHour < currentHour) {
-            return "past";
-          } else if (blockHour === currentHour) {
-            return "present";
-          } else {
-            return "future";
-          }
-        }
-
-        // Call the function to create timeblocks
-        createTimeBlocks();
+        saveBtn.on("click", function () {
+          const eventText = textArea.val();
+          localStorage.setItem(`hour-${index}`, eventText);
+        });
       });
-    </script>
+    }
+
+    // Function to get the appropriate class based on the current hour
+    function getHourClass(blockHour24, currentHour) {
+      if (blockHour24 < currentHour) {
+        return "past";
+      } else if (blockHour24 == currentHour) {
+        return "present";
+      } else {
+        return "future";
+      }
+    }
+
+    // Call the function to create timeblocks
+    createTimeBlocks();
+  });
+</script>
+
   </div>
 </body>
 
