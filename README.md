@@ -1,6 +1,4 @@
-D# Daily Planner App
-
-## Daily Planner App
+# Daily Planner App
 
 A simple calendar application to help users efficiently manage their daily schedule. This app is designed for individuals with busy routines who want to organize their time effectively.
 
