@@ -23,7 +23,7 @@
   />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Add this style to make input text black */
+    /* Style to make input text black */
     .description {
       color: #000000;
     }
@@ -33,6 +33,19 @@
       .saveBtn {
         font-size: 18px;
       }
+    }
+
+    /* Notification style */
+    .notification {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
     }
   </style>
   <title>Work Day Scheduler</title>
@@ -87,6 +100,7 @@
             saveBtn.on("click", function () {
               const eventText = textArea.val();
               localStorage.setItem(`hour-${index}`, eventText);
+              showNotification("Event saved successfully!");
             });
           });
         }
@@ -102,6 +116,15 @@
           }
         }
 
+        // Function to show notification
+        function showNotification(message) {
+          const notification = $("<div>").addClass("notification").text(message);
+          $("body").append(notification);
+          notification.fadeIn().delay(2000).fadeOut(function () {
+            $(this).remove();
+          });
+        }
+
         // Call the function to create timeblocks
         createTimeBlocks();
       });
@@ -111,7 +134,6 @@
 </body>
 
 </html>
-
 
 
 
