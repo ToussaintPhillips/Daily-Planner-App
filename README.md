@@ -53,7 +53,6 @@ A simple calendar application to help users efficiently manage their daily sched
 
 ## Screenshots
 
-![Screenshot1](Daily-Planner-App_Current_Day.png)
 ![Screenshot2](Daily-Planner-App_Enter_Event.png)
 
 ## Technologies
