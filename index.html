@@ -90,6 +90,26 @@
           });
         }
 
+        // Function to get the appropriate class based on the current hour
+        function getHourClass(blockHour, currentHour) {
+          if (blockHour < currentHour) {
+            return "past";
+          } else if (blockHour === currentHour) {
+            return "present";
+          } else {
+            return "future";
+          }
+        }
+
+        // Call the function to create timeblocks
+        createTimeBlocks();
+      });
+    </script>
+  </div>
+</body>
+
+</html>
+
 
 
 
