@@ -52,8 +52,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
-    <!-- Updated JavaScript code -->
-<!-- Updated JavaScript code -->
 <!-- Updated JavaScript code -->
 <script>
   $(document).ready(function () {
@@ -74,8 +72,7 @@
       const container = $(".container");
 
       businessHours.forEach((hour, index) => {
-        // Extract the hour part and convert to 24-hour format
-        const blockHour24 = parseInt(hour.split(' ')[0]) + (hour.includes('PM') ? 12 : 0);
+        const blockHour24 = parseInt(hour.split(' ')[0]) + (hour.includes('PM') && parseInt(hour.split(' ')[0]) !== 12 ? 12 : 0);
 
         const row = $("<div>").addClass("row time-block");
         const hourColumn = $("<div>").addClass("col-md-1 hour").text(hour);
@@ -111,6 +108,7 @@
     createTimeBlocks();
   });
 </script>
+
 
   </div>
 </body>
