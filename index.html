@@ -61,7 +61,34 @@
         $("#currentDay").text(dayjs().format("dddd, MMMM D"));
 
         // Function to create timeblocks
- 
+        function createTimeBlocks() {
+          const businessHours = [
+            "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"
+          ];
+
+          const currentHour = dayjs().format("h A"); // Format the current hour
+
+          const container = $(".container");
+
+          businessHours.forEach((hour, index) => {
+            const row = $("<div>").addClass("row time-block");
+            const hourColumn = $("<div>").addClass("col-md-1 hour").text(hour);
+            const textArea = $("<textarea>")
+              .addClass(`col-md-9 description ${getHourClass(hour, currentHour)}`)
+              .attr("id", `hour-${index}`)
+              .val(localStorage.getItem(`hour-${index}`));
+
+            const saveBtn = $("<button>").addClass("col-md-2 saveBtn").html('<i class="fas fa-save"></i>');
+
+            row.append(hourColumn, textArea, saveBtn);
+            container.append(row);
+
+            saveBtn.on("click", function () {
+              const eventText = textArea.val();
+              localStorage.setItem(`hour-${index}`, eventText);
+            });
+          });
+        }
 
 
 
